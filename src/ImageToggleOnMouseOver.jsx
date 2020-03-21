@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const ImageToggleOnMouseOver = ({ primaryImg, secondaryImg }) => {
     const imgRef = useRef(null);
 
-    const handleMouseOver = () => { imgRef.current.src = secondaryImg };
-    const handleMouseOut = () => { imgRef.current.src = primaryImg };
+    const handleMouseOver = () => { imgRef.current.src = secondaryImg; };
+    const handleMouseOut = () => { imgRef.current.src = primaryImg; };
 
     return (
         <img

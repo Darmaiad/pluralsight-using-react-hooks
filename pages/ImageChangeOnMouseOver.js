@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageToggleOnMouseOver from './../src/ImageToggleOnMouseOver';
+import ImageToggleOnMouseOver from '../src/ImageToggleOnMouseOver';
 
 const ImageChangeOnMouseOver = () => (
     <ImageToggleOnMouseOver
