@@ -1,23 +1,14 @@
 import React from 'react';
 import ImageToggleOnScroll from '../src/ImageToggleOnScroll';
 
-const characters = [
-    'gon.png',
-    'hisoka.png',
-    'kurapika.jpg',
-    'leorio.jpg',
-    'meruem.jpg',
-    'netero.jpg',
-];
-
-// We display a list of character avatars. When the avatar is in full view, Killua jumps in
+// We display a list of speaker avatars. When the avatar is in full view, avatar is coloured up
 const ImageChangeOnScroll = () => (
     <>
-        {characters.map((character) => (
-            <div key={character}>
+        {[1124, 187, 823, 1269, 1530].map((speakerId) => (
+            <div key={speakerId}>
                 <ImageToggleOnScroll
-                    primaryImg={`/${character}`}
-                    secondaryImg="/killua.png"
+                    primaryImg={`/speakers/bw/Speaker-${speakerId}.jpg`}
+                    secondaryImg={`/speakers/Speaker-${speakerId}.jpg`}
                 />
             </div>
         ))}

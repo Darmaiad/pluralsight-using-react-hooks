@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
     const imgRef = useRef(null);
     // Because useEffect is triggered after the first render, there is a flicker, showing the
-    // original character and then Killua (when useEffect is called). In order to prevent
-    // this we need to now show the image until after the useEffect is called.
+    // b&w speaker and then the coloured one (when useEffect is called). In order to prevent
+    // this we need to not show the image until after the useEffect is called.
     const [isLoading, setIsLoading] = useState(true);
 
     const [inView, setInView] = useState(false);
 
-    // Check if the character avatar image is in full view or not
+    // Check if the speaker avatar image is in full view or not
     const isInView = () => {
         if (imgRef.current) {
             const rect = imgRef.current.getBoundingClientRect();
@@ -28,7 +28,7 @@ const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
         const handleScroll = () => setInView(isInView());
 
         window.addEventListener('scroll', handleScroll);
-        // Do not wait for a scroll event to decide if the character is in full view
+        // Do not wait for a scroll event to decide if the speaker is in full view
         setInView(isInView());
         // Now that we know which image to show, set loading to false, and show the image
         setIsLoading(false);
@@ -43,8 +43,8 @@ const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
         <img
             src={inView ? secondaryImg : primaryImg}
             ref={imgRef}
-            width="300"
-            height="300"
+            width="200"
+            height="200"
             alt=""
         />
     );

@@ -14,8 +14,6 @@ const ImageToggleOnMouseOver = ({ primaryImg, secondaryImg }) => {
             onMouseOut={handleMouseOut}
             src={primaryImg}
             ref={imgRef}
-            width="400"
-            height="400"
             alt=""
         />
     );
