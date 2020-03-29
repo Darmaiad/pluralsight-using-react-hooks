@@ -32,10 +32,7 @@
         "react/jsx-indent-props": 0,
         "react/jsx-indent": 0,    
         "arrow-parens": 0,
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
+        "linebreak-style": 0,
         "object-curly-newline": 0,
         "max-len": [1, 180],
         "indent": [1, 4],

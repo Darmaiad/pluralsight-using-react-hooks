@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+/* eslint-disable no-console */
+import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ConfigContext } from './App';
 
 const SignMeUp = ({ signupCallback }) => {
-    useEffect(() => {
-        console.log(`SignMeUp:useEffect called`);
-    });
+    useEffect(() => console.log('SignMeUp:useEffect called'));
 
     const [email, setEmail] = useState();
     const [emailValid, setEmailValid] = useState(false);
     const [sendProcessing, setSendProcessing] = useState(false);
 
-    function validateEmail(email) {
+    const { showSignMeUp } = useContext(ConfigContext);
+
+    const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
-    }
-
-    const notify = () => {
-        toast.info(`You will be notified of upcoming events ${email}`);
     };
 
-    function sendEmailToBackend() {
+    const notify = () => toast.info(`You will be notified of upcoming events ${email}`);
+
+    const sendEmailToBackend = () => {
         setSendProcessing(true);
-        new Promise(function(resolve) {
-            setTimeout(function() {
+        new Promise((resolve) => 
+            setTimeout(() => {
                 setSendProcessing(false);
-                setEmail("");
+                setEmail('');
                 resolve();
-            }, 1000);
-        }).then(() => {
+            }, 1000)
+        ).then(() => {
             notify();
             signupCallback(email);
-            setEmail("");
-        });
-    }
+            setEmail('');
+        }).catch((e) => console.log(e));
+    };
 
-    const buttonText = sendProcessing ? "processing..." : "Get Updates";
+    const buttonText = sendProcessing ? 'processing...' : 'Get Updates';
 
-    //console.log("src/SignMeUp called");
-
-    return (
+    return showSignMeUp === false ? null : (
         <div className="container">
             <div>
                 <ToastContainer />
@@ -54,9 +54,8 @@ const SignMeUp = ({ signupCallback }) => {
                         type="email"
                         name="email"
                         required
-                        required
                     />
-          &nbsp;
+                    &nbsp;
                     <button
                         disabled={!emailValid || sendProcessing}
                         className="btn"
@@ -69,6 +68,10 @@ const SignMeUp = ({ signupCallback }) => {
             </div>
         </div>
     );
+};
+
+SignMeUp.propTypes = {
+    signupCallback: PropTypes.func.isRequired,
 };
 
 export default SignMeUp;

@@ -1,10 +1,9 @@
+/* eslint-disable no-console */
 import React from "react";
 import SignMeUp from "./SignMeUp";
 
-export const Header = () => {
-    const signupCallback = email => {
-        return console.log(`sign up called with email ${email}`);
-    };
+const Header = () => {
+    const signupCallback = email => console.log(`sign up called with email ${email}`);
 
     return (
         <div className="jumbotron jumbotronheight">
@@ -15,7 +14,7 @@ export const Header = () => {
                 </div>
                 <div className="col-12 col-sm-8 text-lg-right">
                     <div>
-                        <img src="/SVCClogo.png" />
+                        <img src="/SVCClogo.png" alt="" />
                     </div>
                     <h2>Silicon Valley Code Camp 2019</h2>
                     <div className="row col-12 text-lg-right">
@@ -26,3 +25,5 @@ export const Header = () => {
         </div>
     );
 };
+
+export default Header;
