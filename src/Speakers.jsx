@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../public/site.css';
@@ -8,11 +8,20 @@ import Menu from './Menu';
 import SpeakerData from './SpeakerData';
 import SpeakerDetail from './SpeakerDetail';
 import { ConfigContext } from './App';
+import speakersReducer from './speakersReducer';
 
-const Speakers = ({ }) => {
+const Speakers = () => {
     const [speakingSaturday, setSpeakingSaturday] = useState(true);
     const [speakingSunday, setSpeakingSunday] = useState(true);
-    const [speakerList, setSpeakerList] = useState([]);
+
+    const [speakerList, dispatch] = useReducer(speakersReducer, []);
+    // Reducer is defined as (state, action) => newState
+    // useState uses useReducer under the hood
+    // The following two statements are equivalent
+    // const [speakerList, setSpeakerList] = useReducer((state, action) => action, []);
+    // const [speakerList, setSpeakerList] = useState([]);
+    // We can think useState as a useReducer call, with a default action
+
     const [isLoading, setIsLoading] = useState(true);
 
     const { showSpeakerSpeakingDays } = useContext(ConfigContext);
@@ -22,10 +31,8 @@ const Speakers = ({ }) => {
         new Promise((resolve) => setTimeout(() => resolve(), 1000))
             .then(() => {
                 setIsLoading(false);
-                const speakerListServerFilter = SpeakerData.filter(({ sat, sun }) => {
-                    return (speakingSaturday && sat) || (speakingSunday && sun);
-                });
-                return setSpeakerList(speakerListServerFilter);
+                const speakerListServerFilter = SpeakerData.filter(({ sat, sun }) => (speakingSaturday && sat) || (speakingSunday && sun));
+                return dispatch({ type: 'setSpeakerList', data: speakerListServerFilter });
             })
             .catch((error) => console.log(error));
 
@@ -58,15 +65,10 @@ const Speakers = ({ }) => {
 
     const heartFavoriteHandler = (e, favoriteValue) => {
         e.preventDefault();
-        const sessionId = parseInt(e.target.attributes['data-sessionid'].value, 10);
-        setSpeakerList(speakerList.map(item => {
-            if (item.id === sessionId) {
-                item.favorite = favoriteValue;
-                return item;
-            }
-            return item;
-        }));
-        // console.log("changing session favorte to " + favoriteValue);
+        dispatch({
+            type: favoriteValue === true ? 'favorite' : 'unfavorite',
+            data: { sessionId: parseInt(e.target.attributes['data-sessionid'].value, 10) },
+        });
     };
 
     if (isLoading) return <div>Loading...</div>;
