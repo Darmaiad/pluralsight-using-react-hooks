@@ -39,4 +39,7 @@ const SpeakerDetail = ({
     );
 };
 
+// memo is a HOC that will perform a shallow comparison of the next and the previous props,
+// in order to decide if the component should be updated, or a memoized version should be returned
+// React cannot know whether a cb func props has changed, so wrap any cb props with useCallback
 export default memo(SpeakerDetail);

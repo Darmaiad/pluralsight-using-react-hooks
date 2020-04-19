@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext, useReducer, useCallback } from 'react';
+import React, { useState, useEffect, useContext, useReducer, useCallback, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../public/site.css';
@@ -51,21 +51,21 @@ const Speakers = () => {
         });
     }, []);
 
-    const speakerListFiltered = isLoading
-        ? []
-        : speakerList
-            .filter(
-                ({ sat, sun }) => (speakingSaturday && sat) || (speakingSunday && sun),
-            )
-            .sort((a, b) => {
-                if (a.firstName < b.firstName) {
-                    return -1;
-                }
-                if (a.firstName > b.firstName) {
-                    return 1;
-                }
-                return 0;
-            });
+    // useMemo(creatorFunc, dependenciesArray)
+    // Memoize the result of creatorFunc, if the dependenciesArray hasn't change
+    const speakers = useMemo(() => speakerList
+        .filter(({ sat, sun }) => (speakingSaturday && sat) || (speakingSunday && sun))
+        .sort((a, b) => {
+            if (a.firstName < b.firstName) {
+                return -1;
+            }
+            if (a.firstName > b.firstName) {
+                return 1;
+            }
+            return 0;
+        }), [speakerList, speakingSaturday, speakingSunday]);
+
+    const speakerListFiltered = isLoading ? [] : speakers;
 
     const handleChangeSunday = () => setSpeakingSunday(!speakingSunday);
 
