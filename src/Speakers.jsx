@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext, useReducer } from 'react';
+import React, { useState, useEffect, useContext, useReducer, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../public/site.css';
@@ -43,6 +43,14 @@ const Speakers = () => {
         setSpeakingSaturday(!speakingSaturday);
     };
 
+    const heartFavoriteHandler = useCallback((e, favoriteValue) => {
+        e.preventDefault();
+        dispatch({
+            type: favoriteValue === true ? 'favorite' : 'unfavorite',
+            data: { sessionId: parseInt(e.target.attributes['data-sessionid'].value, 10) },
+        });
+    }, []);
+
     const speakerListFiltered = isLoading
         ? []
         : speakerList
@@ -59,17 +67,7 @@ const Speakers = () => {
                 return 0;
             });
 
-    const handleChangeSunday = () => {
-        setSpeakingSunday(!speakingSunday);
-    };
-
-    const heartFavoriteHandler = (e, favoriteValue) => {
-        e.preventDefault();
-        dispatch({
-            type: favoriteValue === true ? 'favorite' : 'unfavorite',
-            data: { sessionId: parseInt(e.target.attributes['data-sessionid'].value, 10) },
-        });
-    };
+    const handleChangeSunday = () => setSpeakingSunday(!speakingSunday);
 
     if (isLoading) return <div>Loading...</div>;
 

@@ -1,4 +1,6 @@
-import ImageToggleOnScroll from "./ImageToggleOnScroll";
+import React, { memo } from 'react';
+
+import ImageToggleOnScroll from './ImageToggleOnScroll';
 
 const SpeakerDetail = ({
     id,
@@ -8,7 +10,7 @@ const SpeakerDetail = ({
     bio,
     onHeartFavoriteHandler
 }) => {
-    //console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
+    console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
     return (
         <div className="card col-4 cardmin">
             <ImageToggleOnScroll
@@ -21,7 +23,7 @@ const SpeakerDetail = ({
                 <h4 className="card-title">
                     <button
                         data-sessionid={id}
-                        className={favorite ? "heartredbutton" : "heartdarkbutton"}
+                        className={favorite ? 'heartredbutton' : 'heartdarkbutton'}
                         onClick={e => {
                             onHeartFavoriteHandler(e, !favorite);
                         }}
@@ -37,4 +39,4 @@ const SpeakerDetail = ({
     );
 };
 
-export default SpeakerDetail;
+export default memo(SpeakerDetail);
