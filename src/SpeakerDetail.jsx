@@ -8,7 +8,9 @@ const SpeakerDetail = ({
     lastName,
     favorite,
     bio,
-    onHeartFavoriteHandler
+    onHeartFavoriteHandler,
+    sat,
+    sun,
 }) => {
     console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
     return (
@@ -25,7 +27,15 @@ const SpeakerDetail = ({
                         data-sessionid={id}
                         className={favorite ? 'heartredbutton' : 'heartdarkbutton'}
                         onClick={e => {
-                            onHeartFavoriteHandler(e, !favorite);
+                            onHeartFavoriteHandler(e, {
+                                id,
+                                firstName,
+                                lastName,
+                                favorite,
+                                bio,
+                                sat,
+                                sun,
+                            });
                         }}
                     />
                     <span>

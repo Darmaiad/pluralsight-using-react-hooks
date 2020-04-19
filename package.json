@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "json-server": "json-server --watch db.json --port 4000 --delay 500"
   },
   "author": "Darmaiad <geo.filippakis@gmail.com> (https://github.com/Darmaiad)",
   "license": "ISC",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "json-server": "^0.16.1",
     "next": "^9.3.5",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
