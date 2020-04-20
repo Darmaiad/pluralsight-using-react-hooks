@@ -13,7 +13,7 @@ const SignMeUp = ({ signupCallback }) => {
     const [emailValid, setEmailValid] = useState(false);
     const [sendProcessing, setSendProcessing] = useState(false);
 
-    const { showSignMeUp } = useContext(ConfigContext);
+    const { showSignMeUp, loggedInUserEmail } = useContext(ConfigContext);
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,6 +38,18 @@ const SignMeUp = ({ signupCallback }) => {
     };
 
     const buttonText = sendProcessing ? 'processing...' : 'Get Updates';
+
+    if (loggedInUserEmail) {
+        return (
+            <div className="container">
+                <div className="content">
+                    <span>Logged in User Email: {loggedInUserEmail}</span>
+                    &nbsp;&nbsp;
+                    <a href='/logout' >Logout</a>
+                </div>
+            </div>
+        );
+    }
 
     return showSignMeUp === false ? null : (
         <div className="container">
@@ -64,6 +76,7 @@ const SignMeUp = ({ signupCallback }) => {
                     >
                         {buttonText}
                     </button>
+                    &nbsp;&nbsp;<a href='/login' >Login</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 
 import ImageToggleOnScroll from './ImageToggleOnScroll';
+import { ConfigContext } from './App';
 
 const SpeakerDetail = ({
     id,
@@ -13,6 +14,8 @@ const SpeakerDetail = ({
     sun,
 }) => {
     console.log(`SpeakerDetail:${id} ${firstName} ${lastName} ${favorite}`);
+    const { loggedInUserEmail } = useContext(ConfigContext);
+
     return (
         <div className="card col-4 cardmin">
             <ImageToggleOnScroll
@@ -23,21 +26,23 @@ const SpeakerDetail = ({
             />
             <div className="card-body">
                 <h4 className="card-title">
-                    <button
-                        data-sessionid={id}
-                        className={favorite ? 'heartredbutton' : 'heartdarkbutton'}
-                        onClick={e => {
-                            onHeartFavoriteHandler(e, {
-                                id,
-                                firstName,
-                                lastName,
-                                favorite,
-                                bio,
-                                sat,
-                                sun,
-                            });
-                        }}
-                    />
+                    {loggedInUserEmail ? (
+                        <button
+                            data-sessionid={id}
+                            className={favorite ? 'heartredbutton' : 'heartdarkbutton'}
+                            onClick={e => {
+                                onHeartFavoriteHandler(e, {
+                                    id,
+                                    firstName,
+                                    lastName,
+                                    favorite,
+                                    bio,
+                                    sat,
+                                    sun,
+                                });
+                            }}
+                        />
+                    ) : null}
                     <span>
                         {firstName} {lastName}
                     </span>
