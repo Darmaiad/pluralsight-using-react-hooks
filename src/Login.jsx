@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import "../public/site.css";
-import Header from "../src/Header";
-import Menu from "../src/Menu";
+import '../public/site.css';
+import Header from '../src/Header';
+import Menu from '../src/Menu';
 
 const Index = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
         <div>
@@ -45,10 +45,10 @@ const Index = () => {
                         </div>
                         <div className="text-right mt-2">
                             <button
+                                type="button"
                                 className="btn btn-primary btn-reversed-borders"
                                 value="submit"
-                            >
-                            </button>
+                            />
                         </div>
                     </form>
                 </div>

@@ -30,7 +30,7 @@ const App = ({ pageName, userInfo }) => {
 
 App.propTypes = {
     pageName: PropTypes.string.isRequired,
-    userInfo: PropTypes.shape({ email: PropTypes.string }).isRequired,
+    userInfo: PropTypes.shape({ email: PropTypes.string }),
 };
 
 export default App;
